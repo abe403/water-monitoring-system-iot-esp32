@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.system_data",
+  "data": {
+    "core": {
+      "onboarded_version": "2026.4.4",
+      "onboarded_date": "2026-04-28T11:16:14.324Z"
+    },
+    "home": {
+      "favorite_entities": [
+        "sensor.water_level"
+      ]
+    }
+  }
+}

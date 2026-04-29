@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Assistant - Mock Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: #111; color: white; padding: 50px; }
+        .ha-card { background: #222; border-radius: 12px; padding: 20px; width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .sensor-header { color: #aaa; font-size: 14px; margin-bottom: 10px; }
+        .sensor-value { font-size: 48px; font-weight: bold; color: #03a9f4; }
+        .sensor-unit { font-size: 24px; color: #777; }
+        #status-alert { margin-top: 20px; padding: 10px; border-radius: 5px; display: none; }
+        .alert-danger { background: #f44336; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Lovelace UI - Mock</h1>
+    <div class="ha-card">
+        <div class="sensor-header">Water Tank Level</div>
+        <!-- This matches the 'Level' sensor from water-level.yaml -->
+        <div id="sensor-level-value" class="sensor-value">100</div>
+        <span class="sensor-unit">%</span>
+        
+        <div id="status-alert" class="alert-danger">
+            LEAK DETECTED!
+        </div>
+    </div>
+
+    <script>
+        // This simulates the Home Assistant REST API updating the UI
+        function updateSensor(value) {
+            document.getElementById('sensor-level-value').innerText = value;
+            if (value < 20) {
+                document.getElementById('status-alert').style.display = 'block';
+            } else {
+                document.getElementById('status-alert').style.display = 'none';
+            }
+        }
+
+        // Example: Initial delay then drop value
+        setTimeout(() => updateSensor(85), 2000);
+    </script>
+</body>
+</html>
