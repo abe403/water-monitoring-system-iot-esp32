@@ -1,0 +1,28 @@
+# Ignore the entire secrets folder
+secrets/
+
+# Environment variables and local settings
+.env
+.env.local
+.env.*.local
+
+# Sensitive keys and certificates
+*.pem
+*.key
+*.pub
+*.cert
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# ESPHome and platform specific builds
+.esphome/
+.pio/
+build/
+.vscode/
