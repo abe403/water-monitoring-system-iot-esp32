@@ -11,9 +11,9 @@ jobs:
     name: React Operator Console
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: '24'
           cache: npm
@@ -31,22 +31,22 @@ jobs:
     name: Java Platform
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: corretto
           java-version: '25'
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Build and test
         working-directory: platform
-        run: ./gradlew build
+        run: sh ./gradlew build
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: java-test-results
           path: platform/**/build/reports/tests/
@@ -55,9 +55,9 @@ jobs:
     name: Python ML
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -72,9 +72,9 @@ jobs:
     name: Python Simulator
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -89,9 +89,9 @@ jobs:
     name: Conservation Oracle
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -105,18 +105,38 @@ jobs:
     name: ESPHome Validation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install ESPHome
-        run: pip install esphome -q
+        run: pip install 'esphome==2026.8.1' -q
 
       - name: Create secrets.yaml
         working-directory: firmware
-        run: cp secrets.yaml.example secrets.yaml
+        run: |
+          cp secrets.yaml.example secrets.yaml
+          python - <<'PY'
+          import base64
+          from pathlib import Path
+
+          path = Path("secrets.yaml")
+          replacements = {
+              "water_level_api_encryption_key": base64.b64encode(bytes(32)).decode(),
+              "pump_controller_api_encryption_key": base64.b64encode(bytes(32)).decode(),
+              "water_level_ap_password": "ci-water-level-password",
+              "pump_controller_ap_password": "ci-pump-controller-password",
+          }
+          lines = []
+          for line in path.read_text().splitlines():
+              name = line.split(":", 1)[0].strip()
+              if name in replacements:
+                  line = f'{name}: "{replacements[name]}"'
+              lines.append(line)
+          path.write_text("\n".join(lines) + "\n")
+          PY
 
       - name: Validate water-level
         working-directory: firmware
