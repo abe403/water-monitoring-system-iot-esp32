@@ -1,0 +1,238 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: wtm-conservation
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+  namespace: wtm-conservation
+spec:
+  clusterIP: None
+  publishNotReadyAddresses: true
+  selector:
+    app: kafka
+  ports:
+    - name: broker
+      port: 9092
+    - name: controller
+      port: 9093
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  namespace: wtm-conservation
+spec:
+  serviceName: kafka
+  replicas: 3
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 20
+      containers:
+        - name: kafka
+          image: apache/kafka:3.9.0
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/bash", "-ec"]
+          args:
+            - |
+              NODE_ID="${POD_NAME##*-}"
+              cat >/tmp/server.properties <<EOF
+              process.roles=broker,controller
+              node.id=${NODE_ID}
+              controller.quorum.voters=0@kafka-0.kafka.wtm-conservation.svc.cluster.local:9093,1@kafka-1.kafka.wtm-conservation.svc.cluster.local:9093,2@kafka-2.kafka.wtm-conservation.svc.cluster.local:9093
+              listeners=PLAINTEXT://:9092,CONTROLLER://:9093
+              advertised.listeners=PLAINTEXT://${POD_NAME}.kafka.wtm-conservation.svc.cluster.local:9092
+              listener.security.protocol.map=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+              controller.listener.names=CONTROLLER
+              inter.broker.listener.name=PLAINTEXT
+              log.dirs=/var/lib/kafka/data
+              num.partitions=6
+              default.replication.factor=3
+              min.insync.replicas=2
+              offsets.topic.replication.factor=3
+              transaction.state.log.replication.factor=3
+              transaction.state.log.min.isr=2
+              group.initial.rebalance.delay.ms=0
+              auto.create.topics.enable=false
+              EOF
+              /opt/kafka/bin/kafka-storage.sh format --ignore-formatted -t MkU3OEVBNTcwNTJENDM2Qk -c /tmp/server.properties
+              exec /opt/kafka/bin/kafka-server-start.sh /tmp/server.properties
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            # A kind control-plane plus three brokers must fit in the small
+            # default Podman machine used by local Windows runs. The heap cap
+            # does not change Kafka's RF/minISR contract; it keeps the real
+            # three-broker test from being evicted before the fault window.
+            - name: KAFKA_HEAP_OPTS
+              value: -Xms128m -Xmx256m
+          ports:
+            - name: broker
+              containerPort: 9092
+            - name: controller
+              containerPort: 9093
+          readinessProbe:
+            tcpSocket:
+              port: broker
+            initialDelaySeconds: 5
+            periodSeconds: 3
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/kafka/data
+      volumes:
+        - name: data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mosquitto-config
+  namespace: wtm-conservation
+data:
+  mosquitto.conf: |
+    listener 1883 0.0.0.0
+    allow_anonymous true
+    persistence false
+    max_queued_messages 0
+    max_queued_bytes 268435456
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+  namespace: wtm-conservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+        - name: mosquitto
+          image: eclipse-mosquitto:2.0
+          args: ["mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
+          ports:
+            - containerPort: 1883
+          readinessProbe:
+            tcpSocket:
+              port: 1883
+          volumeMounts:
+            - name: config
+              mountPath: /mosquitto/config
+      volumes:
+        - name: config
+          configMap:
+            name: mosquitto-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+  namespace: wtm-conservation
+spec:
+  selector:
+    app: mosquitto
+  ports:
+    - port: 1883
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kafka-topics
+  namespace: wtm-conservation
+spec:
+  backoffLimit: 6
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: create
+          image: apache/kafka:3.9.0
+          command: ["/bin/bash", "-ec"]
+          args:
+            - |
+              BOOTSTRAP=kafka-0.kafka:9092
+              until /opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server "$BOOTSTRAP" >/dev/null 2>&1; do sleep 2; done
+              create() {
+                /opt/kafka/bin/kafka-topics.sh --bootstrap-server "$BOOTSTRAP" --create --if-not-exists \
+                  --topic "$1" --partitions "$2" --replication-factor 3 \
+                  --config min.insync.replicas=2 --config cleanup.policy=delete
+              }
+              create telemetry.raw.v1 6
+              create telemetry.enriched.v1 6
+              create telemetry.dlq.v1 3
+              create ingest.gap.v1 3
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingest-gateway
+  namespace: wtm-conservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingest-gateway
+  template:
+    metadata:
+      labels:
+        app: ingest-gateway
+    spec:
+      containers:
+        - name: gateway
+          image: localhost/wtm/ingest-gateway:conservation
+          imagePullPolicy: Never
+          env:
+            - name: KAFKA_BOOTSTRAP
+              value: kafka-0.kafka:9092,kafka-1.kafka:9092,kafka-2.kafka:9092
+            - name: MQTT_BROKER_URL
+              value: tcp://mosquitto:1883
+            - name: MQTT_CLIENT_ID
+              value: ingest-gateway-conservation
+            - name: JAVA_TOOL_OPTIONS
+              value: -Xms64m -Xmx256m
+          ports:
+            - containerPort: 8081
+          readinessProbe:
+            # ingest-gateway is intentionally non-web: actuator is present
+            # for metrics but no servlet stack is needed on the hot path.
+            # Readiness therefore proves the actual MQTT durability-chain
+            # dependency: Paho has an ESTABLISHED socket to port 1883.
+            exec:
+              command:
+                - /bin/sh
+                - -ec
+                - |
+                  awk '$3 ~ /:075B$/ && $4 == "01" { found=1 } END { exit(found ? 0 : 1) }' /proc/net/tcp /proc/net/tcp6
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 384Mi

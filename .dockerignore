@@ -1,0 +1,12 @@
+**
+!Dockerfile
+!platform/
+!platform/*/
+!platform/*/build/
+!platform/*/build/libs/
+!platform/*/build/libs/*.jar
+!tools/
+!tools/chaos/
+!tools/chaos/pyproject.toml
+!tools/chaos/src/
+!tools/chaos/src/**

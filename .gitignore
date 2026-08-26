@@ -1,28 +1,59 @@
-# Ignore the entire secrets folder
+# Secrets — never commit real credentials
 secrets/
-
-# Environment variables and local settings
+secrets.yaml
+!secrets.yaml.example
 .env
 .env.local
 .env.*.local
-
-# Sensitive keys and certificates
 *.pem
 *.key
 *.pub
 *.cert
 
-# Python cache and environments
+# Home Assistant local runtime state (was committed pre-2026-08-24; see
+# docs/DECISIONS/0000-security-remediation.md). Untracked going forward.
+automation/config/
+
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 .venv/
 env/
 venv/
-ENV/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+mlruns/
+*.parquet
 
-# ESPHome and platform specific builds
+# Java / Gradle
+platform/**/build/
+platform/.gradle/
+!platform/gradle/wrapper/gradle-wrapper.jar
+*.class
+.gradle/
+hs_err_pid*.log
+replay_pid*.log
+
+# Node / console
+console/node_modules/
+console/dist/
+
+# ESPHome and platform-specific builds
 .esphome/
 .pio/
 build/
+.tools/
+.artifacts/
+.impeccable/mocks/
+
+# IDE
 .vscode/
+.idea/
+*.iml
+
+# Kicad
+*.bak
+*-backups/*.lck

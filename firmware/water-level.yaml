@@ -1,0 +1,162 @@
+# Water Level Node — see docs/ARCHITECTURE.md for the system this feeds into,
+# and docs/DECISIONS/0001-mqtt-over-ha-native-api.md for why MQTT replaced the
+# HA native API as the telemetry transport.
+#
+# KNOWN LIMITATION (undo when possible): this file has not been re-flashed to
+# real hardware since the 2026-08-24 rewrite. The filter-starvation bug fixed
+# below (see docs/DECISIONS/0002-server-side-calibration.md) was diagnosed from
+# static analysis of the config, corroborated by the Home Assistant recorder
+# DB never having recorded an organic reading. Validate with
+# `esphome logs water-level.yaml` across at least 3 wake cycles before trusting
+# this in the field, and watch the `Checksum Errors` diagnostic sensor to
+# confirm the `model:` choice below is actually correct for this unit.
+
+esphome:
+  name: water-tank
+  name_add_mac_suffix: false
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+    # esp-idf would improve deep-sleep current draw, but switching frameworks
+    # changes UART/ADC timing in ways that can't be validated without hardware
+    # in hand — see docs/DECISIONS/0003-keep-arduino-framework.md. Revisit once
+    # a bench unit is available (plan M7).
+
+logger:
+  level: INFO
+
+# ---------------------------------------------------------------------------
+# Deep sleep. 30s awake / 2min asleep. A remote override lets the operator
+# console (once it exists) or Home Assistant hold the device awake for a
+# data-collection campaign (plan M7) via the retained wtm/v1/<id>/cfg topic,
+# same mechanism the previous input_boolean-based override used.
+# ---------------------------------------------------------------------------
+deep_sleep:
+  id: deep_sleep_1
+  run_duration: 30s
+  sleep_duration: 2min
+
+external_components:
+  - source: components
+    components: [ jsn_sr04t, telemetry_outbox ]
+
+time:
+  - platform: sntp
+    id: sntp_time
+    # Best-effort wall clock for TelemetryRecord.epoch_s (human debugging /
+    # correlation only). Message ordering is authoritative via (boot_id, seq),
+    # never this timestamp, so a slow or failed sync degrades observability,
+    # not correctness.
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # Skips a full channel scan on every wake, which otherwise eats 5-8s of a
+  # 30s wake window. Update these to match your AP if you move the device.
+  fast_connect: true
+
+  ap:
+    ssid: "Water-Tank Fallback Hotspot"
+    password: !secret water_level_ap_password
+
+captive_portal:
+
+api:
+  encryption:
+    key: !secret water_level_api_encryption_key
+  reboot_timeout: 0s   # deep-sleeping devices are legitimately API-silent for
+                        # long stretches; don't let ESPHome reboot them for it
+
+ota:
+  - platform: esphome
+    password: !secret water_level_api_encryption_key
+
+mqtt:
+  broker: !secret mqtt_broker_host
+  port: !secret mqtt_broker_port
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+  # No LWT: a 2-minute sleep cycle would make the device flap online/offline
+  # constantly. Liveness is derived server-side from missed cadence instead —
+  # see docs/DECISIONS/0004-server-side-liveness.md.
+  birth_message:
+  will_message:
+  discovery: false
+
+uart:
+  tx_pin: GPIO0
+  rx_pin: GPIO1
+  baud_rate: 9600
+
+# ---------------------------------------------------------------------------
+# Sensing. Smoothing and calibration used to happen on-device (median -> clamp
+# -> EMA -> linear calibration) but the filter chain needed 8 post-median
+# samples per publish and a 30s wake window only ever supplies ~2 — every
+# accumulator reset on each deep-sleep wake before it could reach that count,
+# so `level` never received a state. See docs/DECISIONS/0002.
+#
+# Fix: publish raw distance. Smoothing, clamping, and calibration all move to
+# the stream-processor (platform/stream-processor), where they're testable,
+# re-runnable against history after a recalibration, and immune to the
+# deep-sleep reset. The device's job is just: measure, timestamp, transmit.
+# ---------------------------------------------------------------------------
+sensor:
+  - platform: jsn_sr04t
+    id: distance_sensor
+    name: "Distance"
+    update_interval: 3s
+    # model left at the jsn_sr04t default deliberately — see the comment in
+    # components/jsn_sr04t/jsn_sr04t.cpp before changing this.
+    checksum_error_sensor:
+      id: distance_checksum_errors
+      name: "Distance Checksum Errors"
+      entity_category: "diagnostic"
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: dev_wifi_signal
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+  - platform: copy
+    source_id: dev_wifi_signal
+    name: "WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2.0 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: "diagnostic"
+    device_class: ""
+
+  - platform: adc
+    id: adc_sensor
+    pin: GPIO4
+    attenuation: 11db
+    update_interval: 60s
+
+  - platform: resistance
+    id: resistance_sensor
+    sensor: adc_sensor
+    configuration: UPSTREAM
+    resistor: 100000
+
+  - platform: ntc
+    sensor: resistance_sensor
+    name: "Battery Temperature"
+    id: battery_temperature
+    entity_category: "diagnostic"
+    calibration:
+      b_constant: 3950
+      reference_resistance: 100000
+      reference_temperature: 25°C
+
+telemetry_outbox:
+  id: outbox
+  device_id: "water-tank-01"
+  distance_sensor: distance_sensor
+  temperature_sensor: battery_temperature
+  rssi_sensor: dev_wifi_signal
+  checksum_error_sensor: distance_checksum_errors
+  deep_sleep_id: deep_sleep_1
+  wake_budget: 45s

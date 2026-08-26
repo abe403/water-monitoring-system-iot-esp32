@@ -1,0 +1,27 @@
+# Production topic contract. The chaos test applies the equivalent settings to
+# its ephemeral 3-broker cluster; local docker-compose intentionally cannot.
+topics:
+  - name: telemetry.raw.v1
+    partitions: 6
+    replication_factor: 3
+    config:
+      min.insync.replicas: 2
+      cleanup.policy: delete
+  - name: telemetry.enriched.v1
+    partitions: 6
+    replication_factor: 3
+    config:
+      min.insync.replicas: 2
+      cleanup.policy: delete
+  - name: telemetry.dlq.v1
+    partitions: 3
+    replication_factor: 3
+    config:
+      min.insync.replicas: 2
+      cleanup.policy: delete
+  - name: ingest.gap.v1
+    partitions: 3
+    replication_factor: 3
+    config:
+      min.insync.replicas: 2
+      cleanup.policy: delete

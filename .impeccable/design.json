@@ -1,0 +1,367 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T10:01:46.828Z",
+  "title": "Design System: Waterline Operator Console",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Navy Ink",
+        "canonical": "#092534",
+        "tonalRamp": ["oklch(15% 0.044 235.8)", "oklch(25% 0.044 235.8)", "oklch(35% 0.044 235.8)", "oklch(45% 0.044 235.8)", "oklch(55% 0.044 235.8)", "oklch(65% 0.044 235.8)", "oklch(80% 0.044 235.8)", "oklch(95% 0.044 235.8)"],
+        "purpose": "Primary reading text, button fill, focus-adjacent contrast, and tank linework."
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted Marine Ink",
+        "canonical": "#3f565c",
+        "tonalRamp": ["oklch(15% 0.030 215.6)", "oklch(25% 0.030 215.6)", "oklch(35% 0.030 215.6)", "oklch(45% 0.030 215.6)", "oklch(55% 0.030 215.6)", "oklch(65% 0.030 215.6)", "oklch(80% 0.030 215.6)", "oklch(95% 0.030 215.6)"],
+        "purpose": "Supporting copy, labels, chart text, and quiet metadata."
+      },
+      "enamel": {
+        "role": "neutral",
+        "displayName": "Mineral Enamel",
+        "canonical": "#edf1eb",
+        "tonalRamp": ["oklch(15% 0.009 134.9)", "oklch(25% 0.009 134.9)", "oklch(35% 0.009 134.9)", "oklch(45% 0.009 134.9)", "oklch(55% 0.009 134.9)", "oklch(65% 0.009 134.9)", "oklch(80% 0.009 134.9)", "oklch(95% 0.009 134.9)"],
+        "purpose": "Main application field and work surface."
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Ledger Paper",
+        "canonical": "#f7f8f4",
+        "tonalRamp": ["oklch(15% 0.005 117.9)", "oklch(25% 0.005 117.9)", "oklch(35% 0.005 117.9)", "oklch(45% 0.005 117.9)", "oklch(55% 0.005 117.9)", "oklch(65% 0.005 117.9)", "oklch(80% 0.005 117.9)", "oklch(95% 0.005 117.9)"],
+        "purpose": "Panel, table, stage, and control surfaces."
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Deep Paper",
+        "canonical": "#e0e8e2",
+        "tonalRamp": ["oklch(15% 0.012 153.7)", "oklch(25% 0.012 153.7)", "oklch(35% 0.012 153.7)", "oklch(45% 0.012 153.7)", "oklch(55% 0.012 153.7)", "oklch(65% 0.012 153.7)", "oklch(80% 0.012 153.7)", "oklch(95% 0.012 153.7)"],
+        "purpose": "Scrollbar track, hover wash, tank bands, and tonal depth."
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Oxidized Rule",
+        "canonical": "#91a29f",
+        "tonalRamp": ["oklch(15% 0.020 184.0)", "oklch(25% 0.020 184.0)", "oklch(35% 0.020 184.0)", "oklch(45% 0.020 184.0)", "oklch(55% 0.020 184.0)", "oklch(65% 0.020 184.0)", "oklch(80% 0.020 184.0)", "oklch(95% 0.020 184.0)"],
+        "purpose": "Primary panel, heading, and table borders."
+      },
+      "line-faint": {
+        "role": "neutral",
+        "displayName": "Faint Ledger Rule",
+        "canonical": "#c7d1cd",
+        "tonalRamp": ["oklch(15% 0.012 170.2)", "oklch(25% 0.012 170.2)", "oklch(35% 0.012 170.2)", "oklch(45% 0.012 170.2)", "oklch(55% 0.012 170.2)", "oklch(65% 0.012 170.2)", "oklch(80% 0.012 170.2)", "oklch(95% 0.012 170.2)"],
+        "purpose": "Quiet cell dividers and internal ledger rules."
+      },
+      "live": {
+        "role": "primary",
+        "displayName": "Oxidized Copper",
+        "canonical": "#087e78",
+        "tonalRamp": ["oklch(15% 0.091 188.9)", "oklch(25% 0.091 188.9)", "oklch(35% 0.091 188.9)", "oklch(45% 0.091 188.9)", "oklch(55% 0.091 188.9)", "oklch(65% 0.091 188.9)", "oklch(80% 0.091 188.9)", "oklch(95% 0.091 188.9)"],
+        "purpose": "Live water fill, confirmed process stages, selected rows, and active transport."
+      },
+      "live-deep": {
+        "role": "primary",
+        "displayName": "Deep Copper",
+        "canonical": "#005e5a",
+        "tonalRamp": ["oklch(15% 0.075 189.7)", "oklch(25% 0.075 189.7)", "oklch(35% 0.075 189.7)", "oklch(45% 0.075 189.7)", "oklch(55% 0.075 189.7)", "oklch(65% 0.075 189.7)", "oklch(80% 0.075 189.7)", "oklch(95% 0.075 189.7)"],
+        "purpose": "High-contrast live text, chart level, and good-state labels."
+      },
+      "live-pale": {
+        "role": "primary",
+        "displayName": "Pale Copper Wash",
+        "canonical": "#d4e9e3",
+        "tonalRamp": ["oklch(15% 0.024 176.8)", "oklch(25% 0.024 176.8)", "oklch(35% 0.024 176.8)", "oklch(45% 0.024 176.8)", "oklch(55% 0.024 176.8)", "oklch(65% 0.024 176.8)", "oklch(80% 0.024 176.8)", "oklch(95% 0.024 176.8)"],
+        "purpose": "Selected-device and selected-row background wash."
+      },
+      "warn": {
+        "role": "secondary",
+        "displayName": "Warning Amber",
+        "canonical": "#a75a0c",
+        "tonalRamp": ["oklch(15% 0.128 57.2)", "oklch(25% 0.128 57.2)", "oklch(35% 0.128 57.2)", "oklch(45% 0.128 57.2)", "oklch(55% 0.128 57.2)", "oklch(65% 0.128 57.2)", "oklch(80% 0.128 57.2)", "oklch(95% 0.128 57.2)"],
+        "purpose": "Waiting, reconnect, acknowledgement, and safety states."
+      },
+      "warn-pale": {
+        "role": "secondary",
+        "displayName": "Pale Amber Wash",
+        "canonical": "#f5e4c8",
+        "tonalRamp": ["oklch(15% 0.041 80.3)", "oklch(25% 0.041 80.3)", "oklch(35% 0.041 80.3)", "oklch(45% 0.041 80.3)", "oklch(55% 0.041 80.3)", "oklch(65% 0.041 80.3)", "oklch(80% 0.041 80.3)", "oklch(95% 0.041 80.3)"],
+        "purpose": "Confirmation and safety-note background."
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Alert Red",
+        "canonical": "#a52e27",
+        "tonalRamp": ["oklch(15% 0.156 27.9)", "oklch(25% 0.156 27.9)", "oklch(35% 0.156 27.9)", "oklch(45% 0.156 27.9)", "oklch(55% 0.156 27.9)", "oklch(65% 0.156 27.9)", "oklch(80% 0.156 27.9)", "oklch(95% 0.156 27.9)"],
+        "purpose": "Offline, open, missing, failed, and alert identity states."
+      },
+      "danger-pale": {
+        "role": "secondary",
+        "displayName": "Pale Alert Wash",
+        "canonical": "#f2d9d5",
+        "tonalRamp": ["oklch(15% 0.028 28.5)", "oklch(25% 0.028 28.5)", "oklch(35% 0.028 28.5)", "oklch(45% 0.028 28.5)", "oklch(55% 0.028 28.5)", "oklch(65% 0.028 28.5)", "oklch(80% 0.028 28.5)", "oklch(95% 0.028 28.5)"],
+        "purpose": "Failed-state, inline-error, and alert-hover background."
+      },
+      "navy": {
+        "role": "neutral",
+        "displayName": "Rail Navy",
+        "canonical": "#071f2d",
+        "tonalRamp": ["oklch(15% 0.040 237.6)", "oklch(25% 0.040 237.6)", "oklch(35% 0.040 237.6)", "oklch(45% 0.040 237.6)", "oklch(55% 0.040 237.6)", "oklch(65% 0.040 237.6)", "oklch(80% 0.040 237.6)", "oklch(95% 0.040 237.6)"],
+        "purpose": "Fixed navigation rail, mobile navigation, and page edge."
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "canonical": "#005fcc",
+        "tonalRamp": ["oklch(15% 0.185 257.7)", "oklch(25% 0.185 257.7)", "oklch(35% 0.185 257.7)", "oklch(45% 0.185 257.7)", "oklch(55% 0.185 257.7)", "oklch(65% 0.185 257.7)", "oklch(80% 0.185 257.7)", "oklch(95% 0.185 257.7)"],
+        "purpose": "Visible keyboard focus outline and skip-link surface."
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "Signal White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["oklch(15% 0 0)", "oklch(25% 0 0)", "oklch(35% 0 0)", "oklch(45% 0 0)", "oklch(55% 0 0)", "oklch(65% 0 0)", "oklch(80% 0 0)", "oklch(95% 0 0)"],
+        "purpose": "High-contrast text on dark ink and filled water."
+      },
+      "tank-enamel": {
+        "role": "neutral",
+        "displayName": "Tank Enamel",
+        "canonical": "#f4f6f1",
+        "tonalRamp": ["oklch(15% 0.007 124.4)", "oklch(25% 0.007 124.4)", "oklch(35% 0.007 124.4)", "oklch(45% 0.007 124.4)", "oklch(55% 0.007 124.4)", "oklch(65% 0.007 124.4)", "oklch(80% 0.007 124.4)", "oklch(95% 0.007 124.4)"],
+        "purpose": "Softer enamel field behind the signature tank assembly."
+      },
+      "chart-temperature": {
+        "role": "tertiary",
+        "displayName": "Chart Temperature Amber",
+        "canonical": "#b96812",
+        "tonalRamp": ["oklch(15% 0.136 59.2)", "oklch(25% 0.136 59.2)", "oklch(35% 0.136 59.2)", "oklch(45% 0.136 59.2)", "oklch(55% 0.136 59.2)", "oklch(65% 0.136 59.2)", "oklch(80% 0.136 59.2)", "oklch(95% 0.136 59.2)"],
+        "purpose": "Temperature series in telemetry charts, separate from warning state amber."
+      },
+      "chart-rssi": {
+        "role": "tertiary",
+        "displayName": "Chart Signal Blue",
+        "canonical": "#425d9b",
+        "tonalRamp": ["oklch(15% 0.105 265.0)", "oklch(25% 0.105 265.0)", "oklch(35% 0.105 265.0)", "oklch(45% 0.105 265.0)", "oklch(55% 0.105 265.0)", "oklch(65% 0.105 265.0)", "oklch(80% 0.105 265.0)", "oklch(95% 0.105 265.0)"],
+        "purpose": "RSSI series in telemetry charts."
+      },
+      "rail-text": {
+        "role": "neutral",
+        "displayName": "Rail Label Blue",
+        "canonical": "#b8cbce",
+        "tonalRamp": ["oklch(15% 0.021 208.1)", "oklch(25% 0.021 208.1)", "oklch(35% 0.021 208.1)", "oklch(45% 0.021 208.1)", "oklch(55% 0.021 208.1)", "oklch(65% 0.021 208.1)", "oklch(80% 0.021 208.1)", "oklch(95% 0.021 208.1)"],
+        "purpose": "Default navigation rail labels before active state."
+      },
+      "rail-active": {
+        "role": "neutral",
+        "displayName": "Active Rail Navy",
+        "canonical": "#0e3543",
+        "tonalRamp": ["oklch(15% 0.049 225.8)", "oklch(25% 0.049 225.8)", "oklch(35% 0.049 225.8)", "oklch(45% 0.049 225.8)", "oklch(55% 0.049 225.8)", "oklch(65% 0.049 225.8)", "oklch(80% 0.049 225.8)", "oklch(95% 0.049 225.8)"],
+        "purpose": "Active desktop and mobile navigation background."
+      },
+      "rail-accent": {
+        "role": "primary",
+        "displayName": "Rail Copper Edge",
+        "canonical": "#42c0b4",
+        "tonalRamp": ["oklch(15% 0.111 186.1)", "oklch(25% 0.111 186.1)", "oklch(35% 0.111 186.1)", "oklch(45% 0.111 186.1)", "oklch(55% 0.111 186.1)", "oklch(65% 0.111 186.1)", "oklch(80% 0.111 186.1)", "oklch(95% 0.111 186.1)"],
+        "purpose": "Active navigation edge and brand live mark."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Industrial Display",
+        "purpose": "Page titles and first-viewport scan anchors."
+      },
+      "title": {
+        "displayName": "Panel Title",
+        "purpose": "Panel, section, tank, and stage headings."
+      },
+      "body": {
+        "displayName": "Operational Body",
+        "purpose": "Readable descriptions, caveats, and state explanations."
+      },
+      "label": {
+        "displayName": "Condensed Label",
+        "purpose": "Uppercase navigation, table heads, status, and metadata labels."
+      },
+      "data": {
+        "displayName": "Telemetry Register",
+        "purpose": "Timestamps, sequence numbers, percentages, and sensor values."
+      }
+    },
+    "shadows": [
+      {
+        "name": "tank-vessel-depth",
+        "value": "inset 12px 0 22px rgba(9, 37, 52, 0.06), inset -12px 0 22px rgba(9, 37, 52, 0.06), 0 10px 20px rgba(9, 37, 52, 0.08)",
+        "purpose": "Physical depth for the signature tank vessel only."
+      },
+      {
+        "name": "drawer-lift",
+        "value": "12px 0 28px rgba(4, 20, 29, 0.24)",
+        "purpose": "Structural separation for the open mobile navigation drawer."
+      }
+    ],
+    "motion": [
+      {
+        "name": "tank-fill",
+        "value": "700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Smoothly updates the water fill when a new level arrives."
+      },
+      {
+        "name": "drawer-slide",
+        "value": "260ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Opens and closes the mobile navigation drawer."
+      },
+      {
+        "name": "live-pulse",
+        "value": "2s ease-in-out",
+        "purpose": "Quiet pulse for live markers and listening state."
+      },
+      {
+        "name": "connecting-pulse",
+        "value": "1.5s ease-in-out",
+        "purpose": "Signals an in-progress transport reconnect."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "two-column",
+        "value": "1320px",
+        "purpose": "Overview and alert layouts move from three columns to two."
+      },
+      {
+        "name": "drawer",
+        "value": "980px",
+        "purpose": "Desktop rail becomes a focus-contained navigation drawer."
+      },
+      {
+        "name": "mobile-nav",
+        "value": "680px",
+        "purpose": "Bottom navigation, compact page padding, and horizontal chain strip activate."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Confident action for acknowledging or resolving an operational item.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">ACKNOWLEDGE <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M5 12l4 4L19 6\"></path></svg></button>",
+      "css": ".ds-btn-primary { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.55rem 0.8rem; border: 1px solid var(--ink); border-radius: 0; color: #fff; background: var(--ink); cursor: pointer; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.035em; text-transform: uppercase; transition: background 160ms ease, color 160ms ease; } .ds-btn-primary svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; } .ds-btn-primary:hover { background: var(--live-deep); } .ds-btn-primary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:disabled { cursor: not-allowed; opacity: 0.55; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiet bordered action for acknowledgement or secondary navigation.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">VIEW FLEET</button>",
+      "css": ".ds-btn-secondary { min-height: 38px; display: inline-flex; align-items: center; justify-content: center; padding: 0.55rem 0.8rem; border: 1px solid var(--ink); border-radius: 0; color: var(--ink); background: var(--paper); cursor: pointer; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.035em; text-transform: uppercase; transition: background 160ms ease; } .ds-btn-secondary:hover { background: var(--paper-deep); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; } .ds-btn-secondary:active { transform: translateY(1px); } .ds-btn-secondary:disabled { cursor: not-allowed; opacity: 0.55; }"
+    },
+    {
+      "name": "Text Button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Low-chrome inline action for inspection or retry.",
+      "html": "<button class=\"ds-btn-text\" type=\"button\">RETRY <svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M20 11a8 8 0 1 0 2 5\"></path><path d=\"M20 5v6h-6\"></path></svg></button>",
+      "css": ".ds-btn-text { min-height: 38px; display: inline-flex; align-items: center; gap: 0.4rem; padding: 0; border: 0; border-radius: 0; color: var(--ink); background: transparent; cursor: pointer; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.035em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 0.2em; } .ds-btn-text svg { width: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; } .ds-btn-text:hover { color: var(--live-deep); } .ds-btn-text:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }"
+    },
+    {
+      "name": "Status Tag",
+      "kind": "chip",
+      "refersTo": "status-tag",
+      "description": "Text-plus-dot state marker used wherever evidence quality or transport needs a quick scan.",
+      "html": "<span class=\"ds-status-tag ds-status-tag--good\"><i aria-hidden=\"true\"></i>GOOD</span>",
+      "css": ".ds-status-tag { display: inline-flex; align-items: center; gap: 0.38rem; width: fit-content; color: var(--ink-muted); font-family: var(--font-display); font-size: 0.73rem; font-weight: 600; letter-spacing: 0.055em; line-height: 1; text-transform: uppercase; white-space: nowrap; } .ds-status-tag i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; } .ds-status-tag--good { color: var(--live-deep); } .ds-status-tag--warn { color: var(--warn); } .ds-status-tag--bad { color: var(--danger); } .ds-status-tag--neutral { color: var(--ink-muted); }"
+    },
+    {
+      "name": "Navigation Rail",
+      "kind": "nav",
+      "refersTo": "navigation-rail",
+      "description": "Fixed desktop operator navigation with a compact active edge and icon-over-label links.",
+      "html": "<nav class=\"ds-nav-rail\" aria-label=\"Primary navigation\"><div class=\"ds-nav-rail__brand\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M12 3s5 5.4 5 10a5 5 0 1 1-10 0c0-4.6 5-10 5-10Z\"></path></svg><span>WATERLINE</span></div><a class=\"ds-nav-rail__link ds-nav-rail__link--active\" href=\"#overview\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 15a8 8 0 0 1 16 0\"></path><path d=\"M12 15l3-3\"></path></svg><span>OVERVIEW</span></a><a class=\"ds-nav-rail__link\" href=\"#devices\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"5\" width=\"16\" height=\"5\"></rect><rect x=\"4\" y=\"14\" width=\"16\" height=\"5\"></rect></svg><span>DEVICES</span></a></nav>",
+      "css": ".ds-nav-rail { width: 112px; min-height: 100%; display: flex; flex-direction: column; color: #b8cbce; background: var(--navy); border-right: 1px solid #27424d; } .ds-nav-rail__brand { min-height: 66px; display: flex; align-items: center; justify-content: center; gap: 0.45rem; color: #fff; border-bottom: 1px solid #3b5159; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; } .ds-nav-rail__brand svg { width: 19px; fill: none; stroke: #42c0b4; stroke-width: 1.8; } .ds-nav-rail__link { min-height: 76px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.45rem; color: #b8cbce; border-left: 4px solid transparent; text-decoration: none; font-family: var(--font-display); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: color 160ms ease, background 160ms ease; } .ds-nav-rail__link svg { width: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; } .ds-nav-rail__link:hover { color: #fff; background: #0e2c3c; } .ds-nav-rail__link--active { color: #fff; background: #0e3543; border-left-color: #42c0b4; } .ds-nav-rail__link:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }"
+    },
+    {
+      "name": "Panel Container",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Flat paper-toned ledger surface with a ruled heading band.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel__heading\"><div><h2>ACTIVE ALERTS</h2><p>Operator attention queue</p></div><strong>0</strong></header><div class=\"ds-panel__body\">All monitored devices are clear.</div></section>",
+      "css": ".ds-panel { min-width: 0; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 0; } .ds-panel__heading { min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); } .ds-panel__heading h2 { margin: 0 0 0.15rem; font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; letter-spacing: 0.015em; line-height: 1; text-transform: uppercase; } .ds-panel__heading p { margin: 0; color: var(--ink-muted); font-family: var(--font-body, \"Atkinson Hyperlegible\", system-ui, sans-serif); font-size: 0.84rem; line-height: 1.45; } .ds-panel__heading strong { font-family: var(--font-data); font-size: 1.25rem; } .ds-panel__body { padding: 1rem; color: var(--ink-muted); font-family: \"Atkinson Hyperlegible\", system-ui, sans-serif; }"
+    },
+    {
+      "name": "Tank Station",
+      "kind": "custom",
+      "refersTo": "tank-station",
+      "description": "Signature vessel gauge that keeps calibrated level, freshness, and signal evidence together.",
+      "html": "<section class=\"ds-tank-station\"><header class=\"ds-tank-station__header\"><h2>CLEARWELL 01</h2><span class=\"ds-status-tag ds-status-tag--good\"><i></i>GOOD</span></header><div class=\"ds-tank-assembly\"><div class=\"ds-tank-staff\"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div><div class=\"ds-tank-vessel\"><div class=\"ds-tank-vessel__cap\"></div><div class=\"ds-tank-vessel__water\" aria-hidden=\"true\"><span></span></div><div class=\"ds-tank-vessel__reading\"><strong>75.0%</strong><span>LEVEL</span></div><div class=\"ds-tank-vessel__feet\"><i></i><i></i></div></div></div><dl class=\"ds-tank-register\"><div><dt>MEASURED</dt><dd>52s ago</dd></div><div><dt>SIGNAL</dt><dd>-55 dBm</dd></div></dl></section>",
+      "css": ".ds-tank-station { min-width: 0; display: flex; flex-direction: column; color: var(--ink); background: #f4f6f1; border: 1px solid var(--line); border-radius: 0; } .ds-tank-station__header { min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); } .ds-tank-station__header h2 { margin: 0; font-family: var(--font-display); font-size: 1.7rem; font-weight: 700; line-height: 1; text-transform: uppercase; } .ds-tank-assembly { position: relative; min-height: 320px; display: flex; align-items: center; justify-content: center; padding: 2.5rem 1.8rem 2rem 3.5rem; background-image: linear-gradient(90deg, transparent 49.85%, rgba(9, 37, 52, 0.06) 50%, transparent 50.15%); } .ds-tank-staff { position: absolute; left: 1rem; top: 3.4rem; bottom: 3.2rem; width: 36px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--ink); font: 0.68rem var(--font-data); } .ds-tank-staff span { transform: translateY(50%); } .ds-tank-vessel { position: relative; width: min(90%, 310px); height: 300px; border: 3px solid var(--ink); border-top-width: 4px; border-radius: 44% 44% 8px 8px / 7% 7% 3px 3px; background: rgba(213, 227, 221, 0.4); box-shadow: inset 12px 0 22px rgba(9, 37, 52, 0.06), inset -12px 0 22px rgba(9, 37, 52, 0.06), 0 10px 20px rgba(9, 37, 52, 0.08); overflow: visible; } .ds-tank-vessel__cap { position: absolute; z-index: 2; top: -14px; left: 19%; right: 19%; height: 22px; border: 2px solid var(--ink); border-radius: 50%; background: var(--paper-deep); } .ds-tank-vessel__water { position: absolute; z-index: 1; inset: auto 0 0; height: 100%; overflow: hidden; background: var(--live); transform: scaleY(0.75); transform-origin: bottom; } .ds-tank-vessel__water::before { content: \"\"; position: absolute; top: -8px; left: -2%; width: 104%; height: 17px; border: 1px solid var(--live-deep); border-radius: 50%; background: #55afa7; } .ds-tank-vessel__water span { position: absolute; inset: 0; opacity: 0.12; background-image: radial-gradient(circle at 25% 20%, #fff 0 1px, transparent 1.5px); background-size: 11px 11px; } .ds-tank-vessel__reading { position: absolute; z-index: 3; inset: 0; display: grid; place-content: center; justify-items: center; color: var(--ink); text-shadow: 0 1px 0 rgba(247, 248, 244, 0.7); } .ds-tank-vessel__reading strong { font: 700 clamp(2.8rem, 5vw, 4.8rem)/0.9 var(--font-display); letter-spacing: -0.02em; } .ds-tank-vessel__reading span { padding: 0.12rem 0.38rem; color: #fff; background: rgba(9, 37, 52, 0.9); font: 600 0.95rem var(--font-display); letter-spacing: 0.08em; text-transform: uppercase; } .ds-tank-vessel__feet { position: absolute; z-index: 4; left: 15%; right: 15%; bottom: -27px; display: flex; justify-content: space-between; } .ds-tank-vessel__feet i { width: 25px; height: 25px; border: 2px solid var(--ink); background: var(--paper-deep); } .ds-tank-register { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid var(--line); } .ds-tank-register div { padding: 0.7rem 0.9rem; border-right: 1px solid var(--line-faint); border-bottom: 1px solid var(--line-faint); } .ds-tank-register dt { color: var(--ink-muted); font: 0.72rem var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; } .ds-tank-register dd { margin: 0.18rem 0 0; font: 0.85rem var(--font-data); }"
+    },
+    {
+      "name": "Reading Delivery Chain",
+      "kind": "custom",
+      "refersTo": "delivery-chain",
+      "description": "Six-stage evidence line from device through live browser subscription.",
+      "html": "<ol class=\"ds-chain\"><li class=\"ds-chain__stage ds-chain__stage--ok\"><span class=\"ds-chain__icon\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M5 12a7 7 0 0 1 14 0\"></path><path d=\"M8 12a4 4 0 0 1 8 0\"></path></svg></span><strong>DEVICE</strong><span>CONFIRMED</span></li><li class=\"ds-chain__stage ds-chain__stage--ok\"><span class=\"ds-chain__icon\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 8c4-4 8 4 12 0l4-2\"></path><path d=\"M4 14c4-4 8 4 12 0l4-2\"></path></svg></span><strong>INGEST</strong><span>CONFIRMED</span></li><li class=\"ds-chain__stage ds-chain__stage--waiting\"><span class=\"ds-chain__icon\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><rect x=\"5\" y=\"4\" width=\"14\" height=\"6\"></rect><rect x=\"5\" y=\"14\" width=\"14\" height=\"6\"></rect></svg></span><strong>LIVE</strong><span>AWAITING EVENT</span></li></ol>",
+      "css": ".ds-chain { display: grid; grid-template-columns: repeat(3, 1fr); align-items: center; gap: 0; margin: 0; padding: 1.8rem 1rem; list-style: none; } .ds-chain__stage { position: relative; display: grid; justify-items: center; gap: 0.35rem; color: var(--ink); text-align: center; } .ds-chain__stage:not(:last-child)::after { content: \"\"; position: absolute; z-index: 0; top: 28px; left: calc(50% + 29px); width: calc(100% - 58px); height: 2px; background: var(--live); } .ds-chain__icon { position: relative; z-index: 1; width: 58px; height: 58px; display: grid; place-items: center; border: 1px solid var(--ink-muted); border-radius: 0; background: var(--paper); } .ds-chain__icon svg { width: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; } .ds-chain__stage strong { font: 600 0.88rem var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; } .ds-chain__stage > span:last-child { color: var(--ink-muted); font: 0.62rem var(--font-data); text-transform: uppercase; } .ds-chain__stage::before { content: \"\"; position: absolute; z-index: 2; right: 4px; bottom: 42px; width: 8px; height: 8px; border-radius: 50%; background: var(--live); } .ds-chain__stage--waiting::before { background: var(--warn); }"
+    },
+    {
+      "name": "Telemetry Chart",
+      "kind": "custom",
+      "refersTo": "telemetry-chart",
+      "description": "Evidence chart with distinct level, temperature, and RSSI series plus a register summary.",
+      "html": "<section class=\"ds-telemetry\"><div class=\"ds-telemetry__legend\"><span class=\"ds-telemetry__level\">LEVEL</span><span class=\"ds-telemetry__temp\">TEMPERATURE</span><span class=\"ds-telemetry__rssi\">RSSI</span></div><svg class=\"ds-telemetry__plot\" role=\"img\" aria-label=\"Telemetry trend\" viewBox=\"0 0 640 180\"><path class=\"ds-telemetry__grid\" d=\"M0 20h640M0 80h640M0 140h640\"></path><path class=\"ds-telemetry__line ds-telemetry__line--level\" d=\"M0 90C90 76 140 96 220 80S360 72 430 83S540 62 640 70\"></path><path class=\"ds-telemetry__line ds-telemetry__line--temp\" d=\"M0 132C100 130 190 137 280 128S470 133 640 126\"></path><path class=\"ds-telemetry__line ds-telemetry__line--rssi\" d=\"M0 152C120 148 220 155 340 146S520 150 640 142\"></path><path class=\"ds-telemetry__live\" d=\"M610 12v156\"></path></svg><dl class=\"ds-telemetry__summary\"><div><dt>NOW</dt><dd>75.0%</dd></div><div><dt>MINIMUM</dt><dd>62.1%</dd></div><div><dt>MAXIMUM</dt><dd>72.8%</dd></div><div><dt>SAMPLES</dt><dd>21</dd></div></dl></section>",
+      "css": ".ds-telemetry { padding: 0.7rem 0.9rem 0; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 0; } .ds-telemetry__legend { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0 0 0.25rem 2.6rem; font: 0.72rem var(--font-display); letter-spacing: 0.05em; text-transform: uppercase; } .ds-telemetry__legend span::before { content: \"\"; display: inline-block; width: 18px; height: 2px; margin: 0 0.35rem 0.2rem 0; background: currentColor; } .ds-telemetry__level { color: var(--live-deep); } .ds-telemetry__temp { color: #b96812; } .ds-telemetry__rssi { color: #425d9b; } .ds-telemetry__plot { display: block; width: 100%; height: 240px; } .ds-telemetry__plot path { fill: none; stroke-linecap: round; stroke-linejoin: round; } .ds-telemetry__grid { stroke: #b7c4c0; stroke-dasharray: 2 5; stroke-width: 1; } .ds-telemetry__line--level { stroke: var(--live); stroke-width: 3; } .ds-telemetry__line--temp, .ds-telemetry__line--rssi { stroke-width: 1.5; } .ds-telemetry__line--temp { stroke: #b96812; } .ds-telemetry__line--rssi { stroke: #425d9b; } .ds-telemetry__live { stroke: var(--ink); stroke-dasharray: 4 4; stroke-width: 1; } .ds-telemetry__summary { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 -0.9rem; border-top: 1px solid var(--line); } .ds-telemetry__summary div { padding: 0.75rem 1rem; border-right: 1px solid var(--line-faint); } .ds-telemetry__summary div:last-child { border-right: 0; } .ds-telemetry__summary dt { color: var(--ink-muted); font: 0.72rem var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; } .ds-telemetry__summary dd { margin: 0.18rem 0 0; font: 1rem var(--font-data); }"
+    },
+    {
+      "name": "Alert Ledger Row",
+      "kind": "custom",
+      "refersTo": "ledger-row",
+      "description": "Compact attention row that keeps anomaly identity, device, evidence, and state together.",
+      "html": "<li class=\"ds-alert-row\"><div class=\"ds-alert-row__identity\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M12 3 3 20h18L12 3Z\"></path><path d=\"M12 9v5M12 17h.01\"></path></svg><div><strong>LEVEL DRIFT</strong><span>chaos-001</span></div></div><dl class=\"ds-alert-row__facts\"><div><dt>OPENED</dt><dd>03:55:14 AM</dd></div><div><dt>STATE</dt><dd><span class=\"ds-status-tag ds-status-tag--bad\"><i></i>OPEN</span></dd></div></dl><button class=\"ds-btn-secondary\" type=\"button\">ACKNOWLEDGE</button></li>",
+      "css": ".ds-alert-row { display: grid; grid-template-columns: minmax(210px, 1fr) minmax(250px, 1.5fr) auto; align-items: center; gap: 1.4rem; padding: 1rem; color: var(--ink); border-bottom: 1px solid var(--line); } .ds-alert-row__identity { display: flex; align-items: center; gap: 0.8rem; } .ds-alert-row__identity > svg { width: 26px; fill: none; stroke: var(--danger); stroke-width: 1.8; } .ds-alert-row__identity > div { display: grid; gap: 0.15rem; } .ds-alert-row__identity strong { font: 1.08rem var(--font-display); text-transform: uppercase; } .ds-alert-row__identity span { color: var(--ink-muted); font: 0.75rem var(--font-data); } .ds-alert-row__facts { display: grid; grid-template-columns: 1fr 1fr; margin: 0; } .ds-alert-row__facts > div { padding: 0 0.8rem; border-left: 1px solid var(--line-faint); } .ds-alert-row__facts dt { color: var(--ink-muted); font: 0.72rem var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; } .ds-alert-row__facts dd { margin: 0.18rem 0 0; font: 0.85rem var(--font-data); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Mineral-Enamel Annunciator",
+    "overview": "Waterline is a contemporary municipal water-treatment annunciator board. Mineral enamel and paper-toned surfaces hold a navy ink system; oxidized-copper signals mark live evidence; thin rules and etched process lines make the delivery chain feel inspectable. The interface is one continuous operational record from tank level, through delivery evidence, to attention and history—not a collection of generic smart-home cards.\n\nThe visual voice is disciplined, legible, and equipment-adjacent. Condensed industrial headings establish scan order, monospaced values preserve the feel of a register, and squared ledgers keep the UI calm when an abnormal state needs attention. The tank is the signature object: a vessel silhouette with a staff gauge, water fill, and measured-value register that keeps recency and signal quality beside the headline level.",
+    "keyCharacteristics": [
+      "Mineral enamel, paper, and navy surfaces with quiet one-pixel rules.",
+      "Oxidized-copper live evidence, with amber and red reserved for waiting and abnormal states.",
+      "Condensed uppercase headings paired with monospaced telemetry and timestamps.",
+      "Square ledgers, process stages, and responsive operator layouts rather than pill-shaped cards."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Scarcity Rule",
+        "body": "Live copper carries evidence; amber and red carry state. Do not spend status colors on decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Register Rule",
+        "body": "Let Barlow Condensed carry the operator’s eye and Azeret Mono carry the evidence. Do not replace either register with an undifferentiated UI sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Ledger Rule",
+        "body": "Panels are flat and squared at rest; depth belongs to the tank vessel and the open navigation drawer, not to every card.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use the mineral enamel, paper, navy, and copper roles consistently; keep live copper scarce and meaningful.",
+      "Do preserve the Barlow Condensed heading/label register and Azeret Mono data register.",
+      "Do keep panels, stage boxes, controls, and ledgers square with one-pixel structural rules.",
+      "Do keep recency, quality, provenance, and explicit state labels beside headline values.",
+      "Do preserve loading, empty, stale, offline, and failure treatments, visible focus, reduced motion, and non-color-only state communication.",
+      "Do keep the tank-first hierarchy and responsive rail/drawer/bottom-nav behavior at the documented breakpoints."
+    ],
+    "donts": [
+      "Don't rebuild this surface as a generic smart-home card grid or a collection of pill-shaped status cards.",
+      "Don't use color as the only state signal, or spend warning/red colors on decorative emphasis.",
+      "Don't add pump controls, command affordances, or claims of direct infrastructure health that the product contract does not support.",
+      "Don't remove the chain caveat, recency evidence, or textual chart summary in the name of visual simplicity.",
+      "Don't add heavy global shadows, glossy gradients, or arbitrary new typefaces that fight the mineral-enamel board."
+    ]
+  }
+}

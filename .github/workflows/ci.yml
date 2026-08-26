@@ -1,0 +1,127 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  console:
+    name: React Operator Console
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: console/package-lock.json
+
+      - name: Install, lint, test, and build
+        working-directory: console
+        run: |
+          npm ci
+          npm run lint
+          npm run test
+          npm run build
+
+  java:
+    name: Java Platform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: '25'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test
+        working-directory: platform
+        run: ./gradlew build
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-test-results
+          path: platform/**/build/reports/tests/
+
+  python-ml:
+    name: Python ML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install and test
+        working-directory: ml
+        run: |
+          pip install -e ".[dev]" -q
+          pip install pytest -q
+          python -m pytest tests/ -v --tb=short
+
+  python-simulator:
+    name: Python Simulator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install and test
+        working-directory: simulator
+        run: |
+          pip install -e ".[dev]" -q
+          pip install pytest -q
+          python -m pytest tests/ -v --tb=short
+
+  conservation-oracle:
+    name: Conservation Oracle
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install and test
+        working-directory: tools/chaos
+        run: |
+          pip install -e ".[dev]" -q
+          python -m pytest tests/ -v --tb=short
+
+  firmware-validate:
+    name: ESPHome Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install ESPHome
+        run: pip install esphome -q
+
+      - name: Create secrets.yaml
+        working-directory: firmware
+        run: cp secrets.yaml.example secrets.yaml
+
+      - name: Validate water-level
+        working-directory: firmware
+        run: esphome config water-level.yaml
+
+      - name: Validate pump-controller
+        working-directory: firmware
+        run: esphome config pump-controller.yaml

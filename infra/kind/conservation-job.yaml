@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: conservation
+  namespace: wtm-conservation
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 600
+  template:
+    metadata:
+      labels:
+        app: conservation
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: runner
+          image: localhost/wtm/conservation:latest
+          imagePullPolicy: Never
+          args:
+            - --mqtt-host=mosquitto
+            - --kafka-bootstrap=kafka-0.kafka:9092,kafka-1.kafka:9092,kafka-2.kafka:9092
+            - --devices=8
+            - --records-per-device=500
+            - --rate=200
+            - --settle-timeout=180
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              memory: 256Mi
