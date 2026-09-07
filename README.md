@@ -11,9 +11,7 @@ firmware](https://github.com/FerranST) — see [ATTRIBUTION.md](ATTRIBUTION.md).
 
 Full design, durability chain analysis, and OOD rationale:
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-
-Claim-to-evidence mapping (what is real vs. scaffolded):
-[docs/claims.md](docs/claims.md)
+md)
 
 ```
 ESP32-C3 ──MQTT QoS1──▶ Mosquitto ──▶ ingest-gateway ──▶ Kafka ──▶ stream-processor
@@ -49,7 +47,7 @@ tools/chaos/       3-broker conservation test with broker fault injection
 docs/             architecture, ADRs, claims mapping
 ```
 
-## What works today
+## Features
 
 - **Firmware**: two ESPHome configs (sensing node + pump controller) validated
   against ESPHome 2026.8.1. The original fatal filter-chain bug (device never
@@ -88,9 +86,8 @@ docs/             architecture, ADRs, claims mapping
 Local verification currently covers 46 Java tests, 14 ML tests, 8 simulator
 tests, 3 conservation-oracle tests, and 7 console tests: 78 tests total.
 
-## What is not yet demonstrated
+## To-Do List
 
-See [docs/claims.md](docs/claims.md) for the honest status of every claim.
 The complete local pipeline has now run under Podman: a 40-record MQTT load
 was conserved into Kafka with complete application acknowledgements, persisted
 as 40 unique TimescaleDB rows, and exposed through the operations API. The
